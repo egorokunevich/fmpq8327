@@ -13,11 +13,14 @@ export const PageWrapperSC = styled.div`
   align-items: center;
 `;
 
-export const HeaderLinkSC = styled.a`
+export const HeaderButtonSC = styled.button`
   padding: 10px;
   font-size: 20px;
   text-decoration: none;
   color: #d5e1a3;
+  background-color: transparent;
+  border: none;
+  outline: none;
   cursor: pointer;
   transition: 0.2s;
 

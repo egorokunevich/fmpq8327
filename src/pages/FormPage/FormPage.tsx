@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Button from '../../components/Button/Button';
-import { FormBuilderContainerSC, HeaderLinkSC, HeaderSC, PageWrapperSC } from './styles';
+import { FormBuilderContainerSC, HeaderButtonSC, HeaderSC, PageWrapperSC } from './styles';
 import FormBuilderField from '../../components/FormBuilderField/FormBuilderField';
 
 interface IFormPageProps {
@@ -29,7 +29,7 @@ const FormPage = ({ navigate }: IFormPageProps) => {
   return (
     <div>
       <HeaderSC>
-        <HeaderLinkSC href="/">Home</HeaderLinkSC>
+        <HeaderButtonSC onClick={() => navigate('/')}>Home</HeaderButtonSC>
       </HeaderSC>
       <PageWrapperSC>
         <FormBuilderContainerSC>
