@@ -20,12 +20,7 @@ function App() {
     }
   };
 
-  return (
-    <div className="App">
-      <div>x</div>
-      {getRoute(currentPath)}
-    </div>
-  );
+  return <div className="App">{getRoute(currentPath)}</div>;
 }
 
 export default App;
