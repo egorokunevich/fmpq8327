@@ -11,6 +11,7 @@ export const PageWrapperSC = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 50px;
 `;
 
 export const HeaderButtonSC = styled.button`
@@ -37,4 +38,5 @@ export const FormBuilderContainerSC = styled.div`
   border-radius: 10px;
   border: 1px solid black;
   padding: 20px;
+  gap: 10px;
 `;
