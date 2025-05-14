@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Button from '../../components/Button/Button';
-import { FormBuilderContainerSC, HeaderButtonSC, HeaderSC, PageWrapperSC } from './styles';
+import { FormBuilderContainerSC, FormSC, HeaderButtonSC, HeaderSC, PageWrapperSC } from './styles';
 import FormBuilderField from '../../components/FormBuilderField/FormBuilderField';
 
 interface IFormPageProps {
@@ -21,9 +21,56 @@ const initialFormData = {
 
 const FormPage = ({ navigate }: IFormPageProps) => {
   const [formData, setFormData] = useState<IFormData>(initialFormData);
+  const [displayedForm, setDisplayedForm] = useState<IFormData | null>(null);
 
-  const buildForm = () => {
-    console.log(formData);
+  const renderForm = () => {
+    if (!displayedForm) {
+      if (Object.values(formData).every(value => value === 0)) {
+        return <div>Please, define form properties!</div>;
+      } else if (!Object.values(formData).some(value => value > 0)) {
+        return <div>Can't build a form with defined properties!</div>;
+      }
+    } else {
+      return <FormSC>{renderFormElements()}</FormSC>;
+    }
+  };
+
+  const renderFormElements = () => {
+    if (displayedForm) {
+      return Object.entries(displayedForm).map(([key, count]) => {
+        if (count > 0) {
+          const elements = [];
+
+          for (let i = 1; i < count + 1; i++) {
+            elements.push(getFormElementByKey(key, i));
+          }
+
+          return elements;
+        } else {
+          return null;
+        }
+      });
+    }
+  };
+
+  const getFormElementByKey = (key: string, id: number) => {
+    let element = <div>x</div>;
+
+    switch (key) {
+      case 'inputsCount':
+        element = <input key={`${key} ${id}`} />;
+        break;
+      case 'textAreasCount':
+        element = <textarea key={`${key} ${id}`} />;
+        break;
+      case 'checkboxesCount':
+        element = <input key={`${key} ${id}`} type="checkbox" />;
+        break;
+      default:
+        break;
+    }
+
+    return element;
   };
 
   return (
@@ -48,8 +95,9 @@ const FormPage = ({ navigate }: IFormPageProps) => {
             count={formData.checkboxesCount}
             setCount={count => setFormData(prev => ({ ...prev, checkboxesCount: count }))}
           />
-          <Button onClick={buildForm}>BUILD</Button>
+          <Button onClick={() => setDisplayedForm({ ...formData })}>BUILD</Button>
         </FormBuilderContainerSC>
+        {renderForm()}
       </PageWrapperSC>
     </div>
   );
