@@ -1,3 +1,6 @@
+import Button from '../../components/Button/Button';
+import { PageTitleSC } from './styles';
+
 interface IHomePageProps {
   navigate: (url: string) => void;
 }
@@ -5,8 +8,8 @@ interface IHomePageProps {
 const HomePage = ({ navigate }: IHomePageProps) => {
   return (
     <div>
-      <div>its a Home page</div>
-      <button onClick={() => navigate('/form')}>got to FormPage</button>
+      <PageTitleSC>Form Generator 3000</PageTitleSC>
+      <Button onClick={() => navigate('/form')}>FORM</Button>
     </div>
   );
 };
