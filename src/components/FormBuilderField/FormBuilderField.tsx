@@ -15,7 +15,7 @@ const FormBuilderField = ({ label, count, setCount }: IFormBuilderFieldProps) =>
   return (
     <FormBuilderFieldSC>
       <FormBuilderLabelSC>{label}</FormBuilderLabelSC>
-      <FormBuilderInputSC type="number" value={count} onChange={handleChange} />
+      <FormBuilderInputSC type="number" min={0} value={count} onChange={handleChange} />
     </FormBuilderFieldSC>
   );
 };

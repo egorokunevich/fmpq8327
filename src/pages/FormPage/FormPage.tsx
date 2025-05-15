@@ -1,7 +1,15 @@
 import { useState } from 'react';
 import Button from '../../components/Button/Button';
-import { FormBuilderContainerSC, FormSC, HeaderButtonSC, HeaderSC, PageWrapperSC } from './styles';
+import {
+  FormBuilderContainerSC,
+  FormBuilderFieldsSC,
+  FormSC,
+  GoBackButtonSC,
+  PageWrapperSC,
+} from './styles';
 import FormBuilderField from '../../components/FormBuilderField/FormBuilderField';
+// import backIcon from '/backIcon.svg';
+import { ReactComponent as BackIcon } from '../../assets/backIcon.svg';
 
 interface IFormPageProps {
   navigate: (url: string) => void;
@@ -27,8 +35,6 @@ const FormPage = ({ navigate }: IFormPageProps) => {
     if (!displayedForm) {
       if (Object.values(formData).every(value => value === 0)) {
         return <div>Please, define form properties!</div>;
-      } else if (!Object.values(formData).some(value => value > 0)) {
-        return <div>Can't build a form with defined properties!</div>;
       }
     } else {
       return <FormSC>{renderFormElements()}</FormSC>;
@@ -75,27 +81,36 @@ const FormPage = ({ navigate }: IFormPageProps) => {
 
   return (
     <div>
-      <HeaderSC>
-        <HeaderButtonSC onClick={() => navigate('/')}>Home</HeaderButtonSC>
-      </HeaderSC>
+      <GoBackButtonSC onClick={() => navigate('/')}>
+        <BackIcon />
+        {/* <img src="/backIcon.svg" alt="go back" /> */}
+      </GoBackButtonSC>
       <PageWrapperSC>
         <FormBuilderContainerSC>
-          <FormBuilderField
-            label={'Input'}
-            count={formData.inputsCount}
-            setCount={count => setFormData(prev => ({ ...prev, inputsCount: count }))}
-          />
-          <FormBuilderField
-            label={'TextArea'}
-            count={formData.textAreasCount}
-            setCount={count => setFormData(prev => ({ ...prev, textAreasCount: count }))}
-          />
-          <FormBuilderField
-            label={'Checkbox'}
-            count={formData.checkboxesCount}
-            setCount={count => setFormData(prev => ({ ...prev, checkboxesCount: count }))}
-          />
-          <Button onClick={() => setDisplayedForm({ ...formData })}>BUILD</Button>
+          <FormBuilderFieldsSC>
+            <FormBuilderField
+              label={'Input'}
+              count={formData.inputsCount}
+              setCount={count => setFormData(prev => ({ ...prev, inputsCount: count }))}
+            />
+            <FormBuilderField
+              label={'TextArea'}
+              count={formData.textAreasCount}
+              setCount={count => setFormData(prev => ({ ...prev, textAreasCount: count }))}
+            />
+            <FormBuilderField
+              label={'Checkbox'}
+              count={formData.checkboxesCount}
+              setCount={count => setFormData(prev => ({ ...prev, checkboxesCount: count }))}
+            />
+          </FormBuilderFieldsSC>
+          <Button
+            onClick={() => setDisplayedForm({ ...formData })}
+            disabled={
+              !formData.checkboxesCount && !formData.inputsCount && !formData.textAreasCount
+            }>
+            BUILD
+          </Button>
         </FormBuilderContainerSC>
         {renderForm()}
       </PageWrapperSC>
