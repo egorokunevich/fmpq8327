@@ -8,7 +8,6 @@ import {
   PageWrapperSC,
 } from './styles';
 import FormBuilderField from '../../components/FormBuilderField/FormBuilderField';
-// import backIcon from '/backIcon.svg';
 import { ReactComponent as BackIcon } from '../../assets/backIcon.svg';
 
 interface IFormPageProps {
@@ -83,7 +82,6 @@ const FormPage = ({ navigate }: IFormPageProps) => {
     <div>
       <GoBackButtonSC onClick={() => navigate('/')}>
         <BackIcon />
-        {/* <img src="/backIcon.svg" alt="go back" /> */}
       </GoBackButtonSC>
       <PageWrapperSC>
         <FormBuilderContainerSC>
