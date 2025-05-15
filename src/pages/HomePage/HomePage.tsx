@@ -8,7 +8,7 @@ interface IHomePageProps {
 const HomePage = ({ navigate }: IHomePageProps) => {
   return (
     <div>
-      <PageTitleSC>Form Generator 3000</PageTitleSC>
+      <PageTitleSC>Form Generator</PageTitleSC>
       <Button onClick={() => navigate('/form')}>FORM</Button>
     </div>
   );

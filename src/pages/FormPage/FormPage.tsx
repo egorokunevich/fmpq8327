@@ -59,7 +59,7 @@ const FormPage = ({ navigate }: IFormPageProps) => {
   };
 
   const getFormElementByKey = (key: string, id: number) => {
-    let element = <div>x</div>;
+    let element = <input key={`${key} ${id}`} />;
 
     switch (key) {
       case 'inputsCount':
