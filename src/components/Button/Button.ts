@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ButtonSC = styled.button`
+export const Button = styled.button`
   border: 1px solid rgb(207, 207, 207);
   outline: none;
   font-size: 20px;

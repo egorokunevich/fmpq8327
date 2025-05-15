@@ -1,26 +1,20 @@
 import { useState } from 'react';
-import Button from '../../components/Button/Button';
 import {
   FormBuilderContainerSC,
   FormBuilderFieldsSC,
-  FormSC,
   GoBackButtonSC,
   PageWrapperSC,
 } from './styles';
 import FormBuilderField from '../../components/FormBuilderField/FormBuilderField';
 import { ReactComponent as BackIcon } from '../../assets/backIcon.svg';
+import Form, { IFormData } from '../../components/Form/Form';
+import { Button } from '../../components/Button/Button';
 
 interface IFormPageProps {
   navigate: (url: string) => void;
 }
 
-interface IFormData {
-  inputsCount: number;
-  textAreasCount: number;
-  checkboxesCount: number;
-}
-
-const initialFormData = {
+const initialFormData: IFormData = {
   inputsCount: 0,
   checkboxesCount: 0,
   textAreasCount: 0,
@@ -28,54 +22,12 @@ const initialFormData = {
 
 const FormPage = ({ navigate }: IFormPageProps) => {
   const [formData, setFormData] = useState<IFormData>(initialFormData);
-  const [displayedForm, setDisplayedForm] = useState<IFormData | null>(null);
+  const [formConfig, setFormConfig] = useState<IFormData | null>(null);
 
-  const renderForm = () => {
-    if (!displayedForm) {
-      if (Object.values(formData).every(value => value === 0)) {
-        return <div>Please, define form properties!</div>;
-      }
-    } else {
-      return <FormSC>{renderFormElements()}</FormSC>;
+  const handleBuildClick = () => {
+    if (Object.values(formData).some(value => value !== 0)) {
+      setFormConfig({ ...formData });
     }
-  };
-
-  const renderFormElements = () => {
-    if (displayedForm) {
-      return Object.entries(displayedForm).map(([key, count]) => {
-        if (count > 0) {
-          const elements = [];
-
-          for (let i = 1; i < count + 1; i++) {
-            elements.push(getFormElementByKey(key, i));
-          }
-
-          return elements;
-        } else {
-          return null;
-        }
-      });
-    }
-  };
-
-  const getFormElementByKey = (key: string, id: number) => {
-    let element = <input key={`${key} ${id}`} />;
-
-    switch (key) {
-      case 'inputsCount':
-        element = <input key={`${key} ${id}`} />;
-        break;
-      case 'textAreasCount':
-        element = <textarea key={`${key} ${id}`} />;
-        break;
-      case 'checkboxesCount':
-        element = <input key={`${key} ${id}`} type="checkbox" />;
-        break;
-      default:
-        break;
-    }
-
-    return element;
   };
 
   return (
@@ -103,14 +55,14 @@ const FormPage = ({ navigate }: IFormPageProps) => {
             />
           </FormBuilderFieldsSC>
           <Button
-            onClick={() => setDisplayedForm({ ...formData })}
+            onClick={handleBuildClick}
             disabled={
               !formData.checkboxesCount && !formData.inputsCount && !formData.textAreasCount
             }>
             BUILD
           </Button>
         </FormBuilderContainerSC>
-        {renderForm()}
+        <Form config={formConfig} />
       </PageWrapperSC>
     </div>
   );

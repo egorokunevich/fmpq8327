@@ -11,12 +11,13 @@ function App() {
     window.history.pushState({}, '', pathname);
   };
 
+  // Не уточнил, можно ли использовать библиотеки для роутинга, поэтому написал такой.
   const getRoute = (path: string) => {
-    if (path === '/') {
-      return <HomePage navigate={navigate} />;
-    }
-    if (path === '/form') {
-      return <FormPage navigate={navigate} />;
+    switch (path) {
+      case '/form':
+        return <FormPage navigate={navigate} />;
+      default:
+        return <HomePage navigate={navigate} />;
     }
   };
 

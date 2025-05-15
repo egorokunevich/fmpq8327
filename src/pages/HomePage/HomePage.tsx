@@ -1,4 +1,4 @@
-import Button from '../../components/Button/Button';
+import { Button } from '../../components/Button/Button';
 import { PageTitleSC } from './styles';
 
 interface IHomePageProps {
@@ -7,10 +7,10 @@ interface IHomePageProps {
 
 const HomePage = ({ navigate }: IHomePageProps) => {
   return (
-    <div>
+    <>
       <PageTitleSC>Form Generator</PageTitleSC>
       <Button onClick={() => navigate('/form')}>FORM</Button>
-    </div>
+    </>
   );
 };
 
